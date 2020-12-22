@@ -1,4 +1,5 @@
 import os
+import asyncio
 import logging
 from bh.helpers import Common
 from bh.helpers.seedr_api import SeedrProcessor
@@ -36,3 +37,4 @@ class Cron:
             except Exception as e:
                 logging.error(f"Error Grabbed Torrent File: {e}")
 
+            await asyncio.sleep(10)
