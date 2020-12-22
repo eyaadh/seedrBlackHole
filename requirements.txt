@@ -8,6 +8,7 @@ chardet==3.0.4
 humanfriendly==9.1
 idna==2.10
 multidict==5.1.0
+pip-autoremove==0.9.1
 pyreadline==2.1
 pytz==2020.4
 requests==2.25.1
@@ -16,5 +17,3 @@ typing-extensions==3.7.4.3
 tzlocal==2.1
 urllib3==1.26.2
 yarl==1.6.3
-
-tqdm~=4.54.1

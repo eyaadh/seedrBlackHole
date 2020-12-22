@@ -10,7 +10,6 @@ import requests
 import mimetypes
 import humanfriendly as size
 from bh.helpers import Common
-from tqdm import tqdm
 
 
 class SeedrProcessor:
@@ -126,17 +125,15 @@ class SeedrProcessor:
                     )
             ) as resp:
                 total = int(resp.headers.get('content-length'))
-                progress_bar = tqdm(total=total, unit='iB', unit_scale=True)
                 async with aiofiles.open(dl_compressed_file, mode="wb") as fd:
                     downloaded = 0
                     async for chunk in resp.content.iter_any():
                         downloaded += len(chunk)
                         await fd.write(chunk)
-                        progress_bar.update(downloaded)
-                        # print(f"Downloading: Progress - {size.format_size(downloaded, binary=True)} "
-                        #       f"File: {dl_compressed_file}", end="\r", flush=True)
+                        print(f"Downloading: Progress {size.format_size(downloaded, binary=True)} "
+                              f"of {size.format_size(total, binary=True)}"
+                              f"File: {dl_compressed_file}", end="\r", flush=True)
 
-                    progress_bar.close()
         # await SeedrProcessor().delete_folder(folder_id)
 
         if upload_type == "compressed":
