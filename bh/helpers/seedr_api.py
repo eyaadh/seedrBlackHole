@@ -103,14 +103,15 @@ class SeedrProcessor:
                         print(f"Downloading File: Progress - {size.format_size(downloaded, binary=True)} "
                               f"- File: {temp_file}", end="\r", flush=True)
 
-        # await UploadProcessor().upload_files(temp_file, ack_message, "other")
-
-    async def download_folder(self, folder_id: str, upload_type: str):
+    async def download_folder(self, folder_id: str, tor_type: str):
         endpoint = f"{self.web_dav}/folder/{folder_id}/download"
 
         folder_details = await self.get_folder(folder_id)
         dl_folder_name = f"{folder_details['name']}.zip"
-        dl_compressed_file = os.path.join(Common().sonarr_watch_folder, dl_folder_name)
+        dl_compressed_file = os.path.join(
+            Common().sonarr_watch_folder if tor_type == "series" else Common().radarr_torrent_location,
+            dl_folder_name
+        )
 
         if not os.path.exists(os.path.dirname(dl_compressed_file)):
             os.mkdir(os.path.dirname(dl_compressed_file))
@@ -131,16 +132,13 @@ class SeedrProcessor:
                         downloaded += len(chunk)
                         await fd.write(chunk)
                         print(f"Downloading: Progress {size.format_size(downloaded, binary=True)} "
-                              f"of {size.format_size(total, binary=True)}"
+                              f"of {size.format_size(total, binary=True)} | "
                               f"File: {dl_compressed_file}", end="\r", flush=True)
 
-        # await SeedrProcessor().delete_folder(folder_id)
-
-        if upload_type == "compressed":
-            await self.uncompress_upload(dl_compressed_file, folder_id)
+        await self.uncompress_downloaded(dl_compressed_file, folder_id)
 
     @staticmethod
-    async def uncompress_upload(compressed_file: str, folder_id: str):
+    async def uncompress_downloaded(compressed_file: str, folder_id: str):
         zf = zipfile.ZipFile(compressed_file)
         parent_path = os.path.dirname(compressed_file)
         uncompress_size = sum((file.file_size for file in zf.infolist()))
@@ -163,7 +161,7 @@ class SeedrProcessor:
         logging.info(delete_seedr_folder_resp)
 
     @staticmethod
-    async def wait_for_seedr_download(tr_process):
+    async def wait_for_seedr_download(tr_process, download_type: str):
         try:
             tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
             while True:
@@ -176,7 +174,7 @@ class SeedrProcessor:
                 else:
                     await asyncio.sleep(5)
                     tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
-                    await SeedrProcessor().download_folder(tr_progress['folder_created'], "compressed")
+                    await SeedrProcessor().download_folder(tr_progress['folder_created'], download_type)
                     break
         except Exception as e:
             logging.error(e)
