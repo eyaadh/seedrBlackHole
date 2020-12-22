@@ -161,6 +161,7 @@ class SeedrProcessor:
         x = 0
         for file in extracted_files:
             x = x + 1
+            logging.info(file)
             if (mimetypes.guess_type(file)[0].split('/')[0]).lower() == 'video':
                 dst_file = os.path.join(Common().sonarr_watch_folder, os.path.basename(file))
                 copyfile(file, dst_file)
