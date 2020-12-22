@@ -19,7 +19,7 @@ class SeedrProcessor:
         self.web_dav = "https://www.seedr.cc/rest"
 
     async def add_url(self, url: str, link_type: str):
-        async with aiohttp.ClientSession() as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as seedr_session:
             endpoint = f"{self.web_dav}/torrent/magnet" if link_type == "magnet" else f"{self.web_dav}/torrent/url"
             data = {"magnet": url} if link_type == "magnet" else {"torrent_url": url}
             async with seedr_session.post(
@@ -45,7 +45,7 @@ class SeedrProcessor:
             return json.loads(resp.text)
 
     async def get_torrent_details(self, torrent_id: str):
-        async with aiohttp.ClientSession() as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as seedr_session:
             endpoint = f"{self.web_dav}/torrent/{torrent_id}"
             async with seedr_session.get(
                     url=endpoint,
@@ -57,7 +57,7 @@ class SeedrProcessor:
                 return json.loads(await resp.text())
 
     async def get_folder(self, folder_id: str):
-        async with aiohttp.ClientSession() as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as seedr_session:
             endpoint = f"{self.web_dav}/folder/{folder_id}"
             async with seedr_session.get(
                     url=endpoint,
@@ -69,7 +69,7 @@ class SeedrProcessor:
                 return json.loads(await resp.text())
 
     async def delete_folder(self, folder_id: str):
-        async with aiohttp.ClientSession() as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as seedr_session:
             endpoint = f"{self.web_dav}/folder/{folder_id}"
             async with seedr_session.delete(
                     url=endpoint,
@@ -89,7 +89,7 @@ class SeedrProcessor:
 
         temp_file = os.path.join(temp_dir, file_name)
 
-        async with aiohttp.ClientSession() as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False)) as seedr_session:
             async with seedr_session.get(
                     url=endpoint,
                     auth=aiohttp.BasicAuth(
@@ -121,7 +121,7 @@ class SeedrProcessor:
         if not os.path.exists(os.path.dirname(dl_compressed_file)):
             os.mkdir(os.path.dirname(dl_compressed_file))
 
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=1200)) as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False), timeout=aiohttp.ClientTimeout(total=1200)) as seedr_session:
             async with seedr_session.get(
                     url=endpoint,
                     auth=aiohttp.BasicAuth(
