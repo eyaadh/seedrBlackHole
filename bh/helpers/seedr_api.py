@@ -149,7 +149,8 @@ class SeedrProcessor:
             extracted_size += file.file_size
             extracted_progress = extracted_size * 100 / uncompress_size
 
-            print(f"Extracting file: {int(extracted_progress)} %  {compressed_file}", end="\r", flush=True)
+            print(f"Extracting file: {int(extracted_progress)} % | "
+                  f"File: {compressed_file}", end="\r", flush=True)
 
             extracted_files.append(zf.extract(file, path=parent_path))
         zf.close()
@@ -168,7 +169,7 @@ class SeedrProcessor:
                 if tr_progress["progress"] < 100:
                     tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
                     await asyncio.sleep(1)
-                    print(f"Seedr Progress: {tr_process['title']} "
+                    print(f"Seedr Progress: {tr_process['title']} | "
                           f"Progress: {tr_progress['progress']}% | "
                           f"Size: {size.format_size(tr_progress['size'], binary=True)}", end="\r", flush=True)
                 else:
