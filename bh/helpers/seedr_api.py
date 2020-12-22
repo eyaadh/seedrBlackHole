@@ -138,6 +138,8 @@ class SeedrProcessor:
                         logging.info(f"Downloading: Progress - {size.format_size(downloaded, binary=True)} "
                                      f"File: {dl_compressed_file}")
 
+        await SeedrProcessor().delete_folder(folder_id)
+
         if upload_type == "compressed":
             await self.uncompress_upload(dl_compressed_file)
 
