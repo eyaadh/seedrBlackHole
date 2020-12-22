@@ -110,10 +110,6 @@ class SeedrProcessor:
     async def download_folder(self, folder_id: str, upload_type: str):
         endpoint = f"{self.web_dav}/folder/{folder_id}/download"
 
-        # temp_dir = os.path.join(Common().sonarr_watch_folder, secrets.token_hex(2))
-        # if not os.path.exists(temp_dir):
-        #     os.mkdir(temp_dir)
-
         folder_details = await self.get_folder(folder_id)
         dl_folder_name = f"{folder_details['name']}.zip"
         dl_compressed_file = os.path.join(Common().sonarr_watch_folder, dl_folder_name)
@@ -142,10 +138,10 @@ class SeedrProcessor:
         # await SeedrProcessor().delete_folder(folder_id)
 
         if upload_type == "compressed":
-            await self.uncompress_upload(dl_compressed_file)
+            await self.uncompress_upload(dl_compressed_file, folder_id)
 
     @staticmethod
-    async def uncompress_upload(compressed_file: str):
+    async def uncompress_upload(compressed_file: str, folder_id: str):
         zf = zipfile.ZipFile(compressed_file)
         parent_path = os.path.dirname(compressed_file)
         uncompress_size = sum((file.file_size for file in zf.infolist()))
@@ -164,19 +160,8 @@ class SeedrProcessor:
         if os.path.isfile(compressed_file):
             os.remove(compressed_file)
 
-        # x = 0
-        # for file in extracted_files:
-        #     x = x + 1
-        #     logging.info(file)
-        #     if (mimetypes.guess_type(file)[0].split('/')[0]).lower() == 'video':
-        #         dst_file = os.path.join(Common().sonarr_watch_folder, os.path.basename(file))
-        #         copyfile(file, dst_file)
-
-        # if os.path.exists(parent_path):
-        #     try:
-        #         shutil.rmtree(parent_path)
-        #     except Exception as e:
-        #         logging.error(str(e))
+        delete_seedr_folder_resp = await SeedrProcessor().delete_folder(folder_id)
+        logging.info(delete_seedr_folder_resp)
 
     @staticmethod
     async def wait_for_seedr_download(tr_process):

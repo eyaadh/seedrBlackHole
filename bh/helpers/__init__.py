@@ -1,3 +1,4 @@
+import base64
 import configparser
 
 
@@ -12,4 +13,4 @@ class Common:
         self.sonarr_watch_folder = self.app_config.get("sonarr", "watch_folder")
 
         self.seedr_username = self.app_config.get("seedr", "username")
-        self.seedr_pwd = self.app_config.get("seedr", "password")
+        self.seedr_pwd = base64.b64decode(self.app_config.get("seedr", "password")).decode("utf-8")
