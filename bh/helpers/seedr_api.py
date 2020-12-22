@@ -110,13 +110,13 @@ class SeedrProcessor:
     async def download_folder(self, folder_id: str, upload_type: str):
         endpoint = f"{self.web_dav}/folder/{folder_id}/download"
 
-        temp_dir = os.path.join(Common().working_dir, secrets.token_hex(2))
-        if not os.path.exists(temp_dir):
-            os.mkdir(temp_dir)
+        # temp_dir = os.path.join(Common().sonarr_watch_folder, secrets.token_hex(2))
+        # if not os.path.exists(temp_dir):
+        #     os.mkdir(temp_dir)
 
         folder_details = await self.get_folder(folder_id)
         dl_folder_name = f"{folder_details['name']}.zip"
-        dl_compressed_file = os.path.join(temp_dir, dl_folder_name)
+        dl_compressed_file = os.path.join(Common().sonarr_watch_folder, dl_folder_name)
 
         if not os.path.exists(os.path.dirname(dl_compressed_file)):
             os.mkdir(os.path.dirname(dl_compressed_file))
@@ -158,19 +158,22 @@ class SeedrProcessor:
             extracted_files.append(zf.extract(file, path=parent_path))
         zf.close()
 
-        x = 0
-        for file in extracted_files:
-            x = x + 1
-            logging.info(file)
-            if (mimetypes.guess_type(file)[0].split('/')[0]).lower() == 'video':
-                dst_file = os.path.join(Common().sonarr_watch_folder, os.path.basename(file))
-                copyfile(file, dst_file)
+        if os.path.isfile(compressed_file):
+            os.remove(compressed_file)
 
-        if os.path.exists(parent_path):
-            try:
-                shutil.rmtree(parent_path)
-            except Exception as e:
-                logging.error(str(e))
+        # x = 0
+        # for file in extracted_files:
+        #     x = x + 1
+        #     logging.info(file)
+        #     if (mimetypes.guess_type(file)[0].split('/')[0]).lower() == 'video':
+        #         dst_file = os.path.join(Common().sonarr_watch_folder, os.path.basename(file))
+        #         copyfile(file, dst_file)
+
+        # if os.path.exists(parent_path):
+        #     try:
+        #         shutil.rmtree(parent_path)
+        #     except Exception as e:
+        #         logging.error(str(e))
 
     @staticmethod
     async def wait_for_seedr_download(tr_process):
