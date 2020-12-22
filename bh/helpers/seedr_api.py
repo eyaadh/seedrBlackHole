@@ -109,7 +109,7 @@ class SeedrProcessor:
         folder_details = await self.get_folder(folder_id)
         dl_folder_name = f"{folder_details['name']}.zip"
         dl_compressed_file = os.path.join(
-            Common().sonarr_watch_folder if tor_type == "series" else Common().radarr_torrent_location,
+            Common().sonarr_watch_folder if tor_type == "series" else Common().radarr_watch_folder,
             dl_folder_name
         )
 
