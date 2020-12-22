@@ -102,8 +102,8 @@ class SeedrProcessor:
                     async for chunk in resp.content.iter_any():
                         downloaded += len(chunk)
                         await fd.write(chunk)
-                        logging.info(f"Downloading File: Progress - {size.format_size(downloaded, binary=True)} "
-                                     f"- File: {temp_file}")
+                        print(f"Downloading File: Progress - {size.format_size(downloaded, binary=True)} "
+                              f"- File: {temp_file}", end="\r", flush=True)
 
         # await UploadProcessor().upload_files(temp_file, ack_message, "other")
 
@@ -121,7 +121,8 @@ class SeedrProcessor:
         if not os.path.exists(os.path.dirname(dl_compressed_file)):
             os.mkdir(os.path.dirname(dl_compressed_file))
 
-        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False), timeout=aiohttp.ClientTimeout(total=1200)) as seedr_session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False),
+                                         timeout=aiohttp.ClientTimeout(total=1200)) as seedr_session:
             async with seedr_session.get(
                     url=endpoint,
                     auth=aiohttp.BasicAuth(
@@ -135,8 +136,8 @@ class SeedrProcessor:
                     async for chunk in resp.content.iter_any():
                         downloaded += len(chunk)
                         await fd.write(chunk)
-                        logging.info(f"Downloading: Progress - {size.format_size(downloaded, binary=True)} "
-                                     f"File: {dl_compressed_file}")
+                        print(f"Downloading: Progress - {size.format_size(downloaded, binary=True)} "
+                              f"File: {dl_compressed_file}", end="\r", flush=True)
 
         # await SeedrProcessor().delete_folder(folder_id)
 
@@ -155,7 +156,7 @@ class SeedrProcessor:
             extracted_size += file.file_size
             extracted_progress = extracted_size * 100 / uncompress_size
 
-            logging.info(f"Extracting file: {int(extracted_progress)} %  {compressed_file}")
+            print(f"Extracting file: {int(extracted_progress)} %  {compressed_file}", end="\r", flush=True)
 
             extracted_files.append(zf.extract(file, path=parent_path))
         zf.close()
@@ -185,9 +186,9 @@ class SeedrProcessor:
                 if tr_progress["progress"] < 100:
                     tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
                     await asyncio.sleep(1)
-                    logging.info(f"Seedr Progress: {tr_process['title']} "
-                                 f"Progress: {tr_progress['progress']}% | "
-                                 f"Size: {size.format_size(tr_progress['size'], binary=True)}")
+                    print(f"Seedr Progress: {tr_process['title']} "
+                          f"Progress: {tr_progress['progress']}% | "
+                          f"Size: {size.format_size(tr_progress['size'], binary=True)}", end="\r", flush=True)
                 else:
                     await asyncio.sleep(5)
                     tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
