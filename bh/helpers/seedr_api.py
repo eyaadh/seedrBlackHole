@@ -135,10 +135,14 @@ class SeedrProcessor:
                               f"of {size.format_size(total, binary=True)} | "
                               f"File: {dl_compressed_file}", end="\r", flush=True)
 
-        await self.uncompress_downloaded(dl_compressed_file, folder_id)
+        loop = asyncio.get_event_loop()
+        loop.run_in_executor(None, self.uncompress_downloaded, (dl_compressed_file,))
+
+        delete_seedr_folder_resp = await SeedrProcessor().delete_folder(folder_id)
+        logging.info(delete_seedr_folder_resp)
 
     @staticmethod
-    async def uncompress_downloaded(compressed_file: str, folder_id: str):
+    def uncompress_downloaded(compressed_file: str):
         zf = zipfile.ZipFile(compressed_file)
         parent_path = os.path.dirname(compressed_file)
         uncompress_size = sum((file.file_size for file in zf.infolist()))
@@ -157,9 +161,6 @@ class SeedrProcessor:
 
         if os.path.isfile(compressed_file):
             os.remove(compressed_file)
-
-        delete_seedr_folder_resp = await SeedrProcessor().delete_folder(folder_id)
-        logging.info(delete_seedr_folder_resp)
 
     @staticmethod
     async def wait_for_seedr_download(tr_process, download_type: str):
