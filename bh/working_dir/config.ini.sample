@@ -1,0 +1,29 @@
+[pyrogram]
+api_id =
+api_hash =
+
+[bot-configuration]
+api_key =
+session = falcon
+dustbin = -1001382246125
+sudo_users = [200344026,1234]
+
+[plugins]
+root = bh/telegram/plugins
+
+[sonarr]
+torrent_loc=C:\Users\iyada\Documents\Zoom\tor
+watch_folder=C:\Users\iyada\Documents\Zoom\tor
+
+[radarr]
+api_key =
+url =
+torrent_loc=C:\Users\iyada\Documents\Zoom\tor
+watch_folder=C:\Users\iyada\Documents\Zoom\tor
+radarr_root=E:\Media\Movies
+
+[seedr]
+username =
+password =
+
+
