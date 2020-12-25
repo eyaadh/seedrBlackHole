@@ -133,7 +133,7 @@ class SeedrProcessor:
                         await fd.write(chunk)
                         logging.info(f"Downloading: Progress {size.format_size(downloaded, binary=True)} "
                                      f"of {size.format_size(total, binary=True)} | "
-                                     f"File: {dl_compressed_file}", end="\r", flush=True)
+                                     f"File: {dl_compressed_file}")
 
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(None, self.uncompress_downloaded, dl_compressed_file)
