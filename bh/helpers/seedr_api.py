@@ -136,8 +136,7 @@ class SeedrProcessor:
                               f"File: {dl_compressed_file}", end="\r", flush=True)
 
         loop = asyncio.get_event_loop()
-        ext_proc = loop.run_in_executor(None, self.uncompress_downloaded, dl_compressed_file)
-        ext_progress = await ext_proc
+        await loop.run_in_executor(None, self.uncompress_downloaded, dl_compressed_file)
 
         delete_seedr_folder_resp = await SeedrProcessor().delete_folder(folder_id)
         logging.info(delete_seedr_folder_resp)
