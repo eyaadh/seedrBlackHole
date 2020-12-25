@@ -22,19 +22,19 @@ class Cron:
             tor_file = os.path.join(location, file)
             seedr_resp = await SeedrProcessor().add_file(tor_file)
 
-            # try:
-            if seedr_resp['code'] == 200:
-                logging.info(f"Grabbed Torrent File: {tor_file}")
-                if os.path.isfile(tor_file):
-                    os.remove(tor_file)
+            try:
+                if seedr_resp['code'] == 200:
+                    logging.info(f"Grabbed Torrent File: {tor_file}")
+                    if os.path.isfile(tor_file):
+                        os.remove(tor_file)
 
-                await SeedrProcessor().wait_for_seedr_download(seedr_resp, tor_type)
-            else:
-                logging.error(f"Error Grabbed Torrent File: {tor_file} - Error Code: {seedr_resp['code']} - "
-                              f"Error Description: {seedr_resp['error']}")
-                if os.path.isfile(tor_file):
-                    os.remove(tor_file)
-            # except Exception as e:
-            #     logging.error(f"Error Grabbed Torrent File: {e}")
+                    await SeedrProcessor().wait_for_seedr_download(seedr_resp, tor_type)
+                else:
+                    logging.error(f"Error Grabbed Torrent File: {tor_file} - Error Code: {seedr_resp['code']} - "
+                                  f"Error Description: {seedr_resp['error']}")
+                    if os.path.isfile(tor_file):
+                        os.remove(tor_file)
+            except Exception as e:
+                logging.error(f"Error Grabbed Torrent File: {e}")
 
             # await asyncio.sleep(10)
