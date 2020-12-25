@@ -174,7 +174,7 @@ class SeedrProcessor:
                       f"Progress: {tr_progress['progress']}% | "
                       f"Size: {size.format_size(tr_progress['size'], binary=True)}", end="\r", flush=True)
             else:
-                await asyncio.sleep(5)
+                # await asyncio.sleep(5)
                 tr_progress = await SeedrProcessor().get_torrent_details(tr_process["user_torrent_id"])
                 await SeedrProcessor().download_folder(tr_progress['folder_created'], download_type)
                 break
