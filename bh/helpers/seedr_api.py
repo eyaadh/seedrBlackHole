@@ -131,9 +131,9 @@ class SeedrProcessor:
                     async for chunk in resp.content.iter_any():
                         downloaded += len(chunk)
                         await fd.write(chunk)
-                        print(f"Downloading: Progress {size.format_size(downloaded, binary=True)} "
-                              f"of {size.format_size(total, binary=True)} | "
-                              f"File: {dl_compressed_file}", end="\r", flush=True)
+                        logging.info(f"Downloading: Progress {size.format_size(downloaded, binary=True)} "
+                                     f"of {size.format_size(total, binary=True)} | "
+                                     f"File: {dl_compressed_file}", end="\r", flush=True)
 
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(None, self.uncompress_downloaded, dl_compressed_file)
