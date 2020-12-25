@@ -125,6 +125,7 @@ class SeedrProcessor:
                         Common().seedr_pwd
                     )
             ) as resp:
+                logging.info(resp.headers)
                 total = int(resp.headers.get('content-length'))
                 async with aiofiles.open(dl_compressed_file, mode="wb") as fd:
                     downloaded = 0
