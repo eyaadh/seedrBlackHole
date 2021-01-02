@@ -1,7 +1,6 @@
 # Seedr Black Hole
-The project has been done with the mindset of creating a butler/bot to a Media Management Project for a VOD Service which
-we like to call as Falcon - where the bot handles downloads and requests for Movies by the end users. The VOD service uses 
-PLEX as the main client–server media player system. Radarr to assist with
+The project has been done with the mindset of creating a butler/bot to a Media Management Project for a VOD Service - where the application handles downloads and requests for Movies by the end users. 
+The VOD service uses PLEX as the main client–server media player system. Radarr to assist with
 search and manage Movies and Sonarr for TV series. Jackett to provide indexers for both Radarr and Sonarr.
 
 Now let me explain where "Seedr Black Hole" fits in this mighty mixture of application suites:
