@@ -32,5 +32,5 @@ Now let me explain where "Seedr Black Hole" fits in this mighty mixture of appli
     - Finally the API key from Jackett and press "Save"
   
 
-    >> You can connect both Sonarr/Radarr to inform the bot and plex once a media is Grabbed (notify when available for download), on Download (when the media download is completed) by adding them under Settings>Connect, its 
-  recommended doing so since this would keep the whole project more personalized.
+Note: You can connect both Sonarr/Radarr to inform the bot and plex once a media is Grabbed (notify when available for download), on Download (when the media download is completed) by adding them under Settings>Connect, its 
+recommended doing so since this would keep the whole project more personalized.
