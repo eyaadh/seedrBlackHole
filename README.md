@@ -42,3 +42,40 @@ recommended doing so since this would keep the whole project more personalized.
 4. Create a new `config.ini` in working_dir using the sample available at `bh/working_dir/config.ini.sample`.
 5. Run with `python -m bh`, stop with <kbd>CTRL</kbd>+<kbd>C</kbd>.
 > It is recommended to use [virtual environments](https://docs.python-guide.org/dev/virtualenvs/) while running the app, this is a good practice you can use at any of your python projects as virtualenv creates an isolated Python environment which is specific to your project.
+
+## Config.ini:
+```
+[pyrogram]
+# More info on API_ID and API_HASH can be found here: https://docs.pyrogram.org/intro/setup#api-keys
+api_id =
+api_hash =
+
+[bot-configuration]
+# More info on Bot API Key/token can be found here: https://core.telegram.org/bots#6-botfather
+api_key =
+session = falcon
+# The chat ID for the group at which end users will be interacting with the telegram bot.
+dustbin = -1001382246125
+# The admin users who are allowed to accept the media requests that comes in.
+sudo_users = [200344026,1234]
+
+[plugins]
+root = bh/telegram/plugins
+
+[sonarr]
+torrent_loc=C:\Users\iyada\Documents\Zoom\tor
+watch_folder=C:\Users\iyada\Documents\Zoom\tor
+
+[radarr]
+api_key =
+url =
+torrent_loc=C:\Users\iyada\Documents\Zoom\tor
+watch_folder=C:\Users\iyada\Documents\Zoom\tor
+radarr_root=E:\Media\Movies
+
+[seedr]
+username =
+password =
+
+
+```
