@@ -1,11 +1,14 @@
 # Seedr Black Hole
-The project has been done with the mindset of being an assistant to a Media management project for a VOD Service which
-we like to call as Falcon. The VOD service uses PLEX as the main client–server media player system. Radarr to assist with
-search, download, and manage Movies and Sonarr for TV series. Jackett to provide indexers for both Radarr and Sonarr.
+The project has been done with the mindset of creating a butler/bot to a Media Management Project for a VOD Service which
+we like to call as Falcon - where the bot handles downloads and requests for Movies by the end users. The VOD service uses 
+PLEX as the main client–server media player system. Radarr to assist with
+search and manage Movies and Sonarr for TV series. Jackett to provide indexers for both Radarr and Sonarr.
 
-Now let me explain you where "Seedr Black Hole" fits in this mighty mixture of application suites:
+Now let me explain where "Seedr Black Hole" fits in this mighty mixture of application suites:
 - It acts as the torrent client (uses Seedr API) for both Sonarr and Radarr.
 - Assist end users to search for movies over telegram and add them to Radarr using its API.
+
+<i>The whole Project was build based on Windows 10 and Python 3.8.1. It uses Pyrogram to communicate with Telegram.</i>
 
 ## Installation and setup of Jackett, Sonarr & Radarr:
 - Sonarr Installation can be found [here](https://sonarr.tv/#download):
@@ -14,18 +17,18 @@ Now let me explain you where "Seedr Black Hole" fits in this mighty mixture of a
     ### Setting up of torrent client for both Sonarr & Radarr:
     - Go to Settings>Download Clinets> and select [+] button to add a new client.
     - From the options available select Torrent Blackhole.
-    - Basically a torrent blackhole client puts .torrent files into a folder, to be picked up by an external tool. Will watch another folder to check for completed downloads.
+    - Basically a torrent blackhole client puts .torrent files into a folder, to be picked up by an external tool (in this case Seedr Black Hole). Will watch another folder to check for completed downloads.
     - Make sure that "Save Magnet Files" are unselected from options as you add the client as well "Read Only" option is unselected as we also want to import the files to their 
     respective directories rather than keeping it duplicate. \
-      <i>Note: Make a note of Torrent Folder and Watch Folder as you would need them on the config.ini file for Seedr Black Hole. Here Torrent folder is to which Radarr/Sonarr will save the respective torrent file for Seedr Black Hole to grab and add start the process of downloading when
-      there is a new torrent. Also make sure torrent watch folder is always empty unless it is a torrent file from Radarr/Sonarr. Watch folder is which Sonarr/Radarr will look for complete downloads to import them to library.</i>
+      <i>Note: Make a note of Torrent Folder and Watch Folder as you would need them on the config.ini file for Seedr Black Hole.
+      Also make sure torrent watch folder is always empty unless it is a torrent file from Radarr/Sonarr. Watch folder is which Sonarr/Radarr will look for complete downloads to import them to library.</i>
       
     ### Setting up indexers:
     - Once you have installed jackett you can enable/add the indexers of your choice.
     - Now go back to Sonarr/Radarr and perform the bellow steps.
     - Go to Settings>Indexers> and select [+] button to add a new indexer.
-    - On the name enter a name for this indexer of your choosing, keep the rest at default and fill in the URL with details to Jackett host. For instance if you had installed jackett 
-    on the same machine as Sonarr/Raddar http://localhost:9117
+    - Give a name of your choosing, keep the rest at default and fill in the URL with details to Jackett host. For instance if you had installed jackett 
+    on the same machine as Sonarr/Raddar: http://localhost:9117
     - And the API path to be set as /api/v2.0/indexers/all/results/torznab (this might be a hidden attribute, you need to have advance settings enable to see it).
     - Finally the API key from Jackett and press "Save"
     
