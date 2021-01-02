@@ -63,15 +63,15 @@ sudo_users = [200344026,1234]
 root = bh/telegram/plugins
 
 [sonarr]
-torrent_loc=C:\Users\iyada\Documents\Zoom\tor
-watch_folder=C:\Users\iyada\Documents\Zoom\tor
+torrent_loc=
+watch_folder=
 
 [radarr]
 api_key =
 url =
-torrent_loc=C:\Users\iyada\Documents\Zoom\tor
-watch_folder=C:\Users\iyada\Documents\Zoom\tor
-radarr_root=E:\Media\Movies
+torrent_loc=
+watch_folder=
+radarr_root=
 
 [seedr]
 username =
