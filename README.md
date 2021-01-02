@@ -19,3 +19,14 @@ Now let me explain you where "Seedr Black Hole" fits in this mighty mixture of a
     respective directories rather than keeping it duplicate. \
       <i>Note: Make a note of Torrent Folder and Watch Folder as you would need them on the config.ini file for Seedr Black Hole. Here Torrent folder is to which Radarr/Sonarr will save the respective torrent file for Seedr Black Hole to grab and add start the process of downloading when
       there is a new torrent. Also make sure torrent watch folder is always empty unless it is a torrent file from Radarr/Sonarr. Watch folder is which Sonarr/Radarr will look for complete downloads to import them to library.</i>
+      
+    ### Setting up indexers:
+    - Once you have installed jackett you can enable/add the indexers of your choice.
+    - Now go back to Sonarr/Radarr and perform the bellow steps.
+    - Go to Settings>Indexers> and select [+] button to add a new indexer.
+    - On the name enter a name for this indexer of your choosing, keep the rest at default and fill in the URL with details to Jackett host. For instance if you had installed jackett 
+    on the same machine as Sonarr/Raddar http://localhost:9117
+    - And the API path to be set as /api/v2.0/indexers/all/results/torznab (this might be a hidden attribute, you need to have advance settings enable to see it).
+    - Finally the API key from Jackett and press "Save"
+    
+    ###
