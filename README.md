@@ -5,7 +5,7 @@ search and manage Movies and Sonarr for TV series. Jackett to provide indexers f
 
 Now let me explain where "Seedr Black Hole" fits in this mighty mixture of application suites:
 - It acts as the torrent client (uses Seedr API) for both Sonarr and Radarr.
-- Assist end users to search for movies over telegram and add them to Radarr using its API.
+- Assist end users to search for movies over telegram and add them to Radarr in a much convenient method (inline results).
 
 <i>The whole Project was build based on Windows 10 and Python 3.8.1. It uses Pyrogram to communicate with Telegram.</i>
 
