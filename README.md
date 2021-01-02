@@ -30,5 +30,6 @@ Now let me explain where "Seedr Black Hole" fits in this mighty mixture of appli
     on the same machine as Sonarr/Raddar: http://localhost:9117
     - And the API path to be set as /api/v2.0/indexers/all/results/torznab (this might be a hidden attribute, you need to have advance settings enable to see it).
     - Finally the API key from Jackett and press "Save"
-    
-    ###
+  
+    >> You can connect both Sonarr/Radarr to inform the bot and plex once a media is Grabbed (notify when available for download), on Download (when the media download is completed) by doing the following steps, its 
+  recommended doing so since this would keep the whole project more personalized.
