@@ -43,7 +43,7 @@ recommended doing so since this would keep the whole project more personalized.
 5. Run with `python -m bh`, stop with <kbd>CTRL</kbd>+<kbd>C</kbd>.
 > It is recommended to use [virtual environments](https://docs.python-guide.org/dev/virtualenvs/) while running the app, this is a good practice you can use at any of your python projects as virtualenv creates an isolated Python environment which is specific to your project.
 
-## Config.ini:
+### A brief on Config.ini:
 ```
 [pyrogram]
 # More info on API_ID and API_HASH can be found here: https://docs.pyrogram.org/intro/setup#api-keys
