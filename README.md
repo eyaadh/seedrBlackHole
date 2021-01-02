@@ -63,11 +63,13 @@ sudo_users = [200344026,1234]
 root = bh/telegram/plugins
 
 [sonarr]
-# here the torrent location is the "Torrent Folder" from the black hole setup we did earlier and watch_folder is "Watch Folder" from the same step.
+# Here the torrent location is the "Torrent Folder" from the black hole setup we did earlier and watch_folder is "Watch Folder" from the same step.
 torrent_loc=
 watch_folder=
 
 [radarr]
+# Here the torrent location is the "Torrent Folder" from the black hole setup we did earlier and watch_folder is "Watch Folder" from the same step.
+# The API key for radarr can be found within Settings>General of Radarr.
 api_key =
 url =
 torrent_loc=
@@ -75,8 +77,8 @@ watch_folder=
 radarr_root=
 
 [seedr]
+# You know exactly what needs to be within here. For which ever stupid reason I didn't want the password which is in this configuration file to be plain 
+# to read i.e. the application expects the base64 encoded value for the password to be within here. An easy online tool to encode base64 is https://www.base64encode.org/
 username =
 password =
-
-
 ```
