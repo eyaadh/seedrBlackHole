@@ -11,34 +11,33 @@ async def inline_query_handler(c: Client, iq: InlineQuery):
     q_res_data = await RadarrProcessor().search_movie(q)
     res = []
     if q_res_data is not None:
-        if q_res_data is not None:
-            for movie in q_res_data:
-                if 'title' in movie:
-                    if 'imdbId' in movie:
-                        res.append(
-                            InlineQueryResultArticle(
-                                title=movie['title'],
-                                description=f"{movie['overview']}",
-                                thumb_url=movie[
-                                    'remotePoster'] if 'remotePoster' in movie else 'https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png',
-                                input_message_content=InputTextMessageContent(
-                                    message_text=f"<a href=https://www.imdb.com/title/"
-                                                 f"{movie['imdbId'] if 'imdbId' in movie else None}>"
-                                                 f"<b>{movie['title']}</b></a>\n{movie['overview']}",
-                                    parse_mode="html"
-                                ),
-                                reply_markup=InlineKeyboardMarkup(
+        for movie in q_res_data:
+            if 'title' in movie:
+                if 'imdbId' in movie:
+                    res.append(
+                        InlineQueryResultArticle(
+                            title=movie['title'],
+                            description=f"{movie['overview']}",
+                            thumb_url=movie[
+                                'remotePoster'] if 'remotePoster' in movie else 'https://1080motion.com/wp-content/uploads/2018/06/NoImageFound.jpg.png',
+                            input_message_content=InputTextMessageContent(
+                                message_text=f"<a href=https://www.imdb.com/title/"
+                                             f"{movie['imdbId'] if 'imdbId' in movie else None}>"
+                                             f"<b>{movie['title']}</b></a>\n{movie['overview']}",
+                                parse_mode="html"
+                            ),
+                            reply_markup=InlineKeyboardMarkup(
+                                [
                                     [
-                                        [
-                                            InlineKeyboardButton(
-                                                text=f"{emoji.ROCKET} Add This Movie to Library",
-                                                callback_data=f"radarrad_{movie['imdbId']}"
-                                            )
-                                        ]
+                                        InlineKeyboardButton(
+                                            text=f"{emoji.ROCKET} Add This Movie to Library",
+                                            callback_data=f"radarrad_{movie['imdbId']}"
+                                        )
                                     ]
-                                )
+                                ]
                             )
                         )
+                    )
 
         if res:
             await iq.answer(
