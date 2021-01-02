@@ -63,6 +63,7 @@ sudo_users = [200344026,1234]
 root = bh/telegram/plugins
 
 [sonarr]
+# here the torrent location is the "Torrent Folder" from [here](https://github.com/eyaadh/seedrBlackHole#setting-up-of-torrent-client-for-both-sonarr--radarr)
 torrent_loc=
 watch_folder=
 
