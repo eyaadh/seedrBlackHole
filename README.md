@@ -34,3 +34,11 @@ Now let me explain where "Seedr Black Hole" fits in this mighty mixture of appli
 
 Note: You can connect both Sonarr/Radarr to inform the bot and plex once a media is Grabbed (notify when available for download), on Download (when the media download is completed) by adding them under Settings>Connect, its 
 recommended doing so since this would keep the whole project more personalized.
+
+## Cloning & Run:
+1. `git clone https://github.com/eyaadh/seedrBlackHole.git`, to clone the repository.
+2. `cd seedrBlackHole`, to enter the directory.
+3. `pip install -r requirements.txt`, to install rest of the dependencies/requirements.
+4. Create a new `config.ini` in working_dir using the sample available at `bh/working_dir/config.ini.sample`.
+5. Run with `python -m bh`, stop with <kbd>CTRL</kbd>+<kbd>C</kbd>.
+> It is recommended to use [virtual environments](https://docs.python-guide.org/dev/virtualenvs/) while running the app, this is a good practice you can use at any of your python projects as virtualenv creates an isolated Python environment which is specific to your project.
